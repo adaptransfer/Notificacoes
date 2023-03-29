@@ -29,39 +29,8 @@ public class MainActivity extends AppCompatActivity {
         gerenciador = NotificationManagerCompat.from(this);
 
         //Objetos dos botões da tela
-        Button btBasico = findViewById(R.id.btBasico);
-        Button btImagem = findViewById(R.id.btImagem);
         Button btAction = findViewById(R.id.btAction);
 
-        //Eventos dos botões
-        btBasico.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Criar um objeto para receber o método que cria a notificação base
-                NotificationCompat.Builder base = notificacaoBase("Título", "Mensagem");
-                //A notificação base não precisamos acrescentar nada, só pedir para ela exibir
-                //O id é responsável por identificar a notificação unicamente dentro do canal
-                gerenciador.notify(1, base.build());
-            }
-        });
-
-        btImagem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NotificationCompat.Builder base = notificacaoBase("Título", "Mensagem");
-                //Além da notificação base, vamos adicionar uma imagem
-                //Primeiro criamos a imagem
-                Bitmap imagem = BitmapFactory.decodeResource(getResources(), R.drawable.android);
-                //Depois adicionamos as configurações de estilo para exibir a imagem
-                base.setStyle(new NotificationCompat.BigPictureStyle()
-                    .bigPicture(imagem) //Imagem que será exibida em tamanho maior
-                    .bigLargeIcon(null) //Só exibe a imagem quando expandir a notificação
-                    );
-
-                //Pedir para a notificação ser exibida
-                gerenciador.notify(2, base.build());
-            }
-        });
 
         btAction.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +46,14 @@ public class MainActivity extends AppCompatActivity {
 
                 //Recupera a notificação base
                 NotificationCompat.Builder base = notificacaoBase("Título", "Mensagem");
+                //Além da notificação base, vamos adicionar uma imagem
+                //Primeiro criamos a imagem
+                Bitmap imagem = BitmapFactory.decodeResource(getResources(), R.drawable.android);
+                //Depois adicionamos as configurações de estilo para exibir a imagem
+                base.setStyle(new NotificationCompat.BigPictureStyle()
+                        .bigPicture(imagem) //Imagem que será exibida em tamanho maior
+                        .bigLargeIcon(null) //Só exibe a imagem quando expandir a notificação
+                );
                 //Adicionar um botão de ação
                 base.addAction(R.drawable.icone_notificacao, "Exibir mensagem", pending);
 
@@ -116,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
 
         return notificacao;
     }
-
 
 
     //Criar um método para verificar qual a versão do Android no dispositivo
